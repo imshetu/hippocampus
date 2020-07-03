@@ -1,0 +1,19 @@
+name: Download files from Drive
+on:
+  push:
+    branches:
+      - master
+jobs:
+  download-files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        users: actions/checkout@v2
+      - name: Decrypt DB
+        run: |
+          gpg --quiet --batch --yes --decrypt --passphrase="${{secrets.PASSPHRASE}}" --output db.sqlite3 db.sqlite3.gpg
+          gpg --quiet --batch --yes --decrypt --passphrase="${{secrets.PASSPHRASE}}" --output dev-db.sqlite3 dev-db.sqlite3.gpg
+      - name: List files
+        run: |
+          ls -al
+
