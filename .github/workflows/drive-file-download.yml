@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        users: actions/checkout@v2
+        uses: actions/checkout@v2
       - name: Decrypt DB
         run: |
           gpg --quiet --batch --yes --decrypt --passphrase="${{secrets.PASSPHRASE}}" --output db.sqlite3 db.sqlite3.gpg
